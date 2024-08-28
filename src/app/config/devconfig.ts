@@ -1,0 +1,1 @@
+export const BASEPATH_API = process.env['']
