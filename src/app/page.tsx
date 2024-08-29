@@ -7,6 +7,8 @@ import { Carousel } from "./store/slices/frontendSlice";
 import "../component/SlideBanner/SlideBanner.css";
 import VisiMisiContainer from "@/component/VisiMisiContainer";
 import StrukturOrganisasiContainer from "@/component/StrukturOrganisasiContainer";
+import RegistrasiMember from "@/component/RegistrasiMember";
+import FooterComponent from "@/component/FooterComponent";
 
 export default function Home() {
   const [carouselItems, setCarouselItems] = useState<Carousel[]>([]);
@@ -27,9 +29,12 @@ export default function Home() {
 
   const menuItems = [
     { label: "Beranda", href: "/" },
-    { label: "Tentang Kami", href: "#about_us" },
-    { label: "Galery", href: "#galery" },
-    { label: "Pendaftaran", href: "/" },
+    { label: "Tentang One Touring", href: "#about_us" },
+    { label: "Event", href: "#event" },
+    { label: "Blog", href: "/" },
+    { label: "Registrasi member", href: "#register_member" },
+    { label: "Login", href: "#about_us" },
+    { label: "Contact Us", href: "/" },
   ];
 
   return (
@@ -85,12 +90,18 @@ export default function Home() {
         <VisiMisiContainer />
         <StrukturOrganisasiContainer />
       </div>
-      <div id="galery" className="py-[24px] bg-[#B0BEC5]">
+      <div id="event" className="py-[24px] bg-[#B0BEC5]">
         <div className="container flex flex-col justify-center mx-auto py-[24px]">
-          <p className="text-black text-center text-4xl mb-[25px]">
-           Gallery
+          <p className="text-black text-center text-4xl mb-[25px]">Event</p>
+        </div>
+      </div>
+      <div id="register_member" className="py-[24px] bg-black">
+        <div className="container flex flex-col justify-center mx-auto py-[24px]">
+          <p className="text-white text-center text-4xl mb-[25px]">
+          Registrasi member
           </p>
         </div>
+        <RegistrasiMember />
         {/* <div className="container flex flex-wrap justify-center mx-auto py-[24px]">
           <ImageAsset
             height={100}
@@ -134,6 +145,7 @@ export default function Home() {
         <VisiMisiContainer />
         <StrukturOrganisasiContainer /> */}
       </div>
+      <FooterComponent/>
     </div>
   );
 }
