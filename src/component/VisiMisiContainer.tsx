@@ -8,7 +8,7 @@ const VisiMisiContainer = () => {
         <p className="text-lg md:text-xl text-[#D3D3D3]">Visi</p>
         <p className="text-xs md:text-lg text-[#FF9800] ">
           Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and
           scrambled it to make a type specimen book. It has survived not only
           five centuries, but also the leap into electronic typesetting,
@@ -22,7 +22,7 @@ const VisiMisiContainer = () => {
         <p className="text-lg md:text-xl text-[#D3D3D3]">Misi</p>
         <p className="text-xs md:text-lg text-[#FF9800]">
           Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and
           scrambled it to make a type specimen book. It has survived not only
           five centuries, but also the leap into electronic typesetting,

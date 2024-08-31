@@ -8,7 +8,7 @@ const StrukturOrganisasiContainer = () => {
       </p>
       <div className="flex justify-center">
         <div className="w-full max-w-screen-lg">
-          <div className="flex justify-between p-6 shadow-lg">
+          <div className="flex justify-between p-6 ">
             <div className="w-1/2 p-2 text-center">
               <Avatar
                 AvatarSrc="/assets/avatar-sample.svg"
@@ -31,7 +31,7 @@ const StrukturOrganisasiContainer = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-3 p-6 rounded-b-lg shadow-lg">
+          <div className="grid grid-cols-3 p-6">
             <div className="text-center p-2">
               <Avatar
                 AvatarSrc={"/assets/avatar-sample.svg"}
@@ -63,7 +63,7 @@ const StrukturOrganisasiContainer = () => {
               />
             </div>
           </div>
-          <div className="grid grid-cols-5 p-6 rounded-b-lg shadow-lg">
+          <div className="grid grid-cols-5 p-6">
             <div className="text-center p-2">
               <Avatar
                 AvatarSrc={"/assets/avatar-sample.svg"}
