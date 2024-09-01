@@ -1,3 +1,7 @@
+## Version 0.1.3 (1,Sep 2024)
+
+[KOMUNITAS_MOTOR][FE] Blog Pages
+
 ## Version 0.1.2 (31,Aug 2024)
 
 [KOMUNITAS_MOTOR][FE] Event Section & Contact Us
