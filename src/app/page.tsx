@@ -15,10 +15,21 @@ export default function Home() {
   const [carouselItems, setCarouselItems] = useState<Carousel[]>([]);
   const fetchCarouselData = async () => {
     try {
-      const response = await fetch("http://localhost:1337/api/carousels");
+      const response = await fetch("/api/carousel", {
+        method: "POST", // Use POST method
+        headers: {
+          "Content-Type": "application/json", // Set the appropriate headers for JSON content
+        },
+      });
+
+      // Check if the response is successful
+      if (!response.ok) {
+        throw new Error(`Failed to fetch data: ${response.statusText}`);
+      }
+
       const data = await response.json();
-      console.log("data:", data.data); // Log the fetched data
-      setCarouselItems(data.data || []); // Set only the `data` array to `carouselItems`, default to an empty array
+      // Set only the `data` array to `carouselItems`, default to an empty array
+      setCarouselItems(data.data || []);
     } catch (error) {
       console.error("Error fetching carousel data:", error);
     }
@@ -32,7 +43,7 @@ export default function Home() {
     { label: "Beranda", href: "/" },
     { label: "Tentang One Touring", href: "#about_us" },
     { label: "Event", href: "#event" },
-    { label: "Blog", href: "/" },
+    { label: "Blog", href: "/blog" },
     { label: "Registrasi member", href: "#register_member" },
     { label: "Login", href: "https://google.com" },
     { label: "Contact Us", href: "#contact-us" },
