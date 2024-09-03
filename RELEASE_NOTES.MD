@@ -1,3 +1,7 @@
+## Version 0.1.4 (03,Sep 2024)
+
+[KOMUNITAS_MOTOR][FE]Login Page
+
 ## Version 0.1.3 (1,Sep 2024)
 
 [KOMUNITAS_MOTOR][FE] Blog Pages
