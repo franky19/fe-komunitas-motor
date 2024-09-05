@@ -2,8 +2,6 @@
 import { ImageAsset } from "@/component/ImageAsset";
 import Navbar from "@/component/Navbar";
 import { useCallback, useEffect, useState } from "react";
-import UseGetToken from "../hooks/useGetToken";
-
 export default function Page() {
   const [formData, setFormData] = useState<{
     email: string;

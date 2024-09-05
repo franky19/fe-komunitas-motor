@@ -1,3 +1,7 @@
+## Version 0.1.5 (05,Sep 2024)
+
+[KOMUNITAS_MOTOR][FE]Admin Panel Navbar
+
 ## Version 0.1.4 (03,Sep 2024)
 
 [KOMUNITAS_MOTOR][FE]Login Page

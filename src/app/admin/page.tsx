@@ -5,6 +5,7 @@
 
 import { redirect } from 'next/navigation';
 import UseGetToken from '../hooks/useGetToken';
+import Sidebar from '@/component/Sidebar';
 
 export default function Page() {
   // Example: Check some condition to determine whether to redirect
@@ -13,7 +14,11 @@ export default function Page() {
     redirect('/'); // Redirect to the home page
   }
 
-  return <h1>Admin Panel</h1>;
+  return (
+    <>
+    <Sidebar/>
+    </>
+  )
 }
 
 
