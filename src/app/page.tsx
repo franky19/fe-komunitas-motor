@@ -18,7 +18,12 @@ import AboutUs from "@/component/AboutUs/AboutUs";
 import { useComunityMotor } from "./hooks/useComunityMotor";
 
 export default function Home() {
-  const { fetchCarousel, fetchAboutUs, fetchOrgStructure } = useComunityMotor();
+  const {
+    fetchCarousel,
+    fetchAboutUs,
+    fetchOrgStructure,
+    SubmitRegisterMember,
+  } = useComunityMotor();
   const [carouselItems, setCarouselItems] = useState<Carousel[]>([]);
   const [isFetched, setIsFetched] = useState(false); // Add flag to prevent multiple fetches
   const [OrgStructureItem, setOrgStructureItem] = useState<OrgStructure[]>([]);
@@ -53,7 +58,7 @@ export default function Home() {
         setOrgStructureItem(data);
       }
     });
-  }, [fetchAboutUs,fetchCarousel,fetchOrgStructure]); // Include `isFetched` as a dependency
+  }, [fetchAboutUs, fetchCarousel, fetchOrgStructure]); // Include `isFetched` as a dependency
 
   console.log(carouselItems);
 
@@ -183,7 +188,7 @@ export default function Home() {
             Registrasi member
           </p>
         </div>
-        <RegistrasiMember />
+        <RegistrasiMember SubmitRegisterMember={SubmitRegisterMember} />
       </div>
       <ContactUsComponent />
       <FooterComponent />
