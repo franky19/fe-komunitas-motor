@@ -1,3 +1,7 @@
+## Version 0.1.6 (06,Sep 2024)
+
+[KOMUNITAS_MOTOR][Integration API]integration API About us
+
 ## Version 0.1.5 (05,Sep 2024)
 
 [KOMUNITAS_MOTOR][FE]Admin Panel Navbar

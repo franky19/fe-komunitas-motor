@@ -1,17 +1,15 @@
-import { Carousel } from "@/app/store/slices/frontendSlice";
 import { NextResponse } from "next/server";
 import URL from "../config";
+import { AboutUsAPI } from "@/app/store/slices/frontendSlice";
 
 export async function POST() {
   try {
-    const response = await fetch(URL.carousel, {
+    const response = await fetch(URL.aboutUs, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     });
-
-    console.log("");
 
     // Check if the response is successful
     if (!response.ok) {
@@ -21,15 +19,11 @@ export async function POST() {
     // Parse the response data
     const jsonData = await response.json();
 
-    // Safely access the data and cast it to the Carousel type
-    const carousels: Carousel[] = jsonData?.data || [];
-
-    // Log the data for debugging
-    console.log("Fetched carousels data:", carousels);
+    const AboutUsData: AboutUsAPI = jsonData?.data || [];
 
     // Return the response with typed data
     return NextResponse.json(
-      { data: carousels, status: 200, message: "Success" },
+      { data: AboutUsData, status: 200, message: "Success" },
       { status: 200 }
     );
   } catch (error: any) {

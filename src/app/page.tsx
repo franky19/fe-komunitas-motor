@@ -2,42 +2,60 @@
 import { ImageAsset } from "@/component/ImageAsset";
 import Navbar from "@/component/Navbar";
 import SlideshowBanner from "@/component/SlideBanner/SlideShowBanner";
-import { useState, useEffect } from "react";
-import { Carousel } from "./store/slices/frontendSlice";
+import { useState, useEffect, useCallback } from "react";
+import {
+  AboutUsAPI,
+  AboutUsAttribute,
+  Carousel,
+  DetailOrgStructure,
+  OrgStructure,
+} from "./store/slices/frontendSlice";
 import "../component/SlideBanner/SlideBanner.css";
-import VisiMisiContainer from "@/component/VisiMisiContainer";
-import StrukturOrganisasiContainer from "@/component/StrukturOrganisasiContainer";
 import RegistrasiMember from "@/component/RegistrasiMember";
 import FooterComponent from "@/component/FooterComponent";
 import ContactUsComponent from "@/component/ContactUsComponent";
+import AboutUs from "@/component/AboutUs/AboutUs";
+import { useComunityMotor } from "./hooks/useComunityMotor";
 
 export default function Home() {
+  const { fetchCarousel, fetchAboutUs, fetchOrgStructure } = useComunityMotor();
   const [carouselItems, setCarouselItems] = useState<Carousel[]>([]);
-  const fetchCarouselData = async () => {
-    try {
-      const response = await fetch("/api/carousel", {
-        method: "POST", // Use POST method
-        headers: {
-          "Content-Type": "application/json", // Set the appropriate headers for JSON content
-        },
-      });
-
-      // Check if the response is successful
-      if (!response.ok) {
-        throw new Error(`Failed to fetch data: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      // Set only the `data` array to `carouselItems`, default to an empty array
-      setCarouselItems(data.data || []);
-    } catch (error) {
-      console.error("Error fetching carousel data:", error);
+  const [isFetched, setIsFetched] = useState(false); // Add flag to prevent multiple fetches
+  const [OrgStructureItem, setOrgStructureItem] = useState<OrgStructure[]>([]);
+  const [aboutUsItems, setAboutUsItem] = useState<AboutUsAttribute | undefined>(
+    {
+      title: "string",
+      description: "string",
+      date_founded: "string",
+      visi: "string",
+      misi: "string",
+      location_comunity: "",
     }
-  };
+  );
 
   useEffect(() => {
-    fetchCarouselData();
-  }, []);
+    fetchAboutUs().then((data) => {
+      if (data) {
+        console.log("Fetched About Us data:", data);
+        setAboutUsItem(data); // Update state with fetched data
+        setIsFetched(true); // Mark data as fetched to avoid duplicate API calls
+      }
+    });
+    fetchCarousel().then((data) => {
+      if (data) {
+        setCarouselItems(data); // Set the fetched carousel items to the state
+        setIsFetched(true); // Mark as fetched
+      }
+    });
+    fetchOrgStructure().then((data) => {
+      if (data) {
+        console.log("Fetched organitation data:", data);
+        setOrgStructureItem(data);
+      }
+    });
+  }, [fetchAboutUs,fetchCarousel,fetchOrgStructure]); // Include `isFetched` as a dependency
+
+  console.log(carouselItems);
 
   const menuItems = [
     { label: "Beranda", href: "/" },
@@ -49,6 +67,30 @@ export default function Home() {
     { label: "Contact Us", href: "#contact-us" },
   ];
 
+  const getStructureOrg = useCallback(() => {
+    // Extract the end year of the period and find the maximum end year
+    const maxPeriodEndYear = Math.max(
+      ...OrgStructureItem.map((item) =>
+        parseInt(item.attributes.period.split(" - ")[1])
+      )
+    );
+
+    console.log("Max period end year:", maxPeriodEndYear);
+
+    // Filter the OrgStructureItem to return only the items that match the max period
+    const filteredOrgStructure = OrgStructureItem.filter(
+      (item) =>
+        parseInt(item.attributes.period.split(" - ")[1]) === maxPeriodEndYear
+    );
+
+    // Map the filtered items to get the necessary details
+    return filteredOrgStructure.map((value) => ({
+      avatarSrc: value?.attributes?.profile?.url,
+      name: value?.attributes?.name,
+      position: value?.attributes?.position,
+    }));
+  }, [OrgStructureItem]);
+
   return (
     <div className="bg-gray-100">
       <Navbar
@@ -58,50 +100,21 @@ export default function Home() {
         menu={menuItems}
       />
       <SlideshowBanner carouselItems={carouselItems} />
-      <div id="about_us" className="py-[24px] bg-gray-900 text-white">
-        <div className="container flex flex-wrap justify-center mx-auto py-[24px]">
-          <ImageAsset
-            height={100}
-            width={500}
-            src={"tentang-kami.jpeg"}
-            className="w-[50%] h-full rounded"
-          />
-          <div className="w-full lg:w-1/2 mt-4 lg:mt-0 animate__animated animate__fadeInRight">
-            <div className="ml-4 lg:ml-8 pl-2 text-gray-300 text-base">
-              <div className="mb-10 mx-auto ">
-                <h2 className="mt-4 text-white text-4xl font-normal text-center md:text-justify">
-                  Tentang Kami
-                </h2>
-                <p className="text-[#D3D3D3] font-light text-xl text-center md:text-justify">
-                  Komunitas Motor Indonesia
-                </p>
-              </div>
-              <p className="mt-2 text-[#FF9800]">
-                Merupakan komunitas yang diawali dengan kesamaan hobi berkendara
-                sepeda motor dan dibentuk secara sadar sebagai sarana untuk
-                menjalin silaturahmi sesama pengguna motor maupun dengan
-                komunitas lainnya.
-              </p>
-              <ul className="my-5">
-                <li className="flex items-center mb-3 ">
-                  <ImageAsset height={30} width={30} src={"checklist.svg"} />
-                  <p className="ml-3 text-[#FF9800]">
-                    Dibentuk pada 16 Februari 2019.
-                  </p>
-                </li>
-                <li className="flex items-center ">
-                  <ImageAsset height={30} width={30} src={"checklist.svg"} />
-                  <p className="ml-3 text-[#FF9800]">
-                    Berpusat di Bandung dan beberapa wilayah di Indonesia
-                  </p>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <VisiMisiContainer />
-        <StrukturOrganisasiContainer />
-      </div>
+      <AboutUs
+        detailAboutUs={{
+          title: aboutUsItems?.title || "", // Properly access title
+          description: aboutUsItems?.description || "", // Default to empty string if undefined
+          date_found: aboutUsItems?.date_founded || "", // Add other fields as needed
+          location: aboutUsItems?.location_comunity || "", // Example field, adjust according to your data structure
+        }}
+        visiMisi={{
+          visi: aboutUsItems?.visi || "", // Example field
+          misi: aboutUsItems?.misi || "", // Example field
+        }}
+        organitationStructure={{
+          detailOrg: getStructureOrg() || [], // Use getStructureOrg() function and default to an empty array if undefined
+        }}
+      />
       <div id="event" className="py-[24px] bg-[#B0BEC5]">
         <section
           className="bg-cover bg-center h-96 flex items-center justify-center"

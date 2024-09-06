@@ -10,3 +10,35 @@ type CarouselAttributes = {
     url: string;
   };
 };
+
+export type AboutUsAPI = {
+  id: number;
+  attributes: AboutUsAttribute;
+};
+
+export type AboutUsAttribute = {
+  title: string;
+  description: string;
+  date_founded: string;
+  visi: string;
+  misi: string;
+  location_comunity: string;
+};
+
+export type OrgStructure = {
+  id: number;
+  attributes: {
+    name: string;
+    position: string;
+    period: string;
+    profile: {
+      url: string;
+    };
+  };
+};
+
+export type DetailOrgStructure = {
+  avatarSrc?: string;
+  position?: string;
+  name?: string;
+};

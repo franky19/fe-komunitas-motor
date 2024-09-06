@@ -7,59 +7,27 @@ type SlideShowProps = {
   carouselItems?: Carousel[];
 };
 
-// const SlideShowBanner = ({ carouselItems }: SlideShowProps) => {
-//   const progressCircle = useRef(null);
-//   const progressContent = useRef(null);
-//   const onAutoplayTimeLeft = (s, time, progress) => {
-//     progressCircle.current.style.setProperty('--progress', 1 - progress);
-//     progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
-//   };
-//   return (
-//     <div className="container flex flex-wrap items-center justify-between mx-auto py-[24px]">
-//       <Swiper spaceBetween={10} slidesPerView={3}>
-        // {carouselItems?.map((itemSlider, index) => (
-        //   <SwiperSlide key={index}>
-        //     <ImageAssetV2
-        //       height={100}
-        //       width={100}
-        //       src={`${process.env["BASEURL_API"]}${itemSlider?.attributes?.image_slider?.url}`}
-        //       className="w-full h-full"
-        //     />
-        //   </SwiperSlide>
-        // ))}
-//       </Swiper>
-//     </div>
-//   );
-// };
-
-// export default SlideShowBanner;
-
-
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState } from "react";
 // Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
-import "./SlideBanner.css"; 
+import "./SlideBanner.css";
 // import required modules
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { ImageAssetV2 } from "../ImageAsset/ImageAssetV2";
 
 export default function App({ carouselItems }: SlideShowProps) {
   const progressCircle = useRef<SVGSVGElement | null>(null);
   const progressContent = useRef<HTMLSpanElement | null>(null);
 
-  const onAutoplayTimeLeft = (
-    s: any,
-    time: number,
-    progress: number
-  ) => {
+  const onAutoplayTimeLeft = (s: any, time: number, progress: number) => {
     if (progressCircle.current) {
-      progressCircle.current.style.setProperty('--progress', `${1 - progress}`);
+      progressCircle.current.style.setProperty("--progress", `${1 - progress}`);
     }
     if (progressContent.current) {
       progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
@@ -83,7 +51,7 @@ export default function App({ carouselItems }: SlideShowProps) {
         onAutoplayTimeLeft={onAutoplayTimeLeft}
         className="mySwiper"
       >
-         {carouselItems?.map((itemSlider, index) => (
+        {carouselItems?.map((itemSlider, index) => (
           <SwiperSlide key={index}>
             <ImageAssetV2
               height={50}
