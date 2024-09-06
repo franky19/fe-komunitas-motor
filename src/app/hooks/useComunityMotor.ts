@@ -11,6 +11,14 @@ type ContextDispatchTypeProps = {
   fetchCarousel: () => Promise<Carousel[] | undefined>;
   fetchAboutUs: () => Promise<AboutUsAttribute | undefined>;
   fetchOrgStructure: () => Promise<OrgStructure[] | undefined>;
+  SubmitRegisterMember: (
+    name: string,
+    gender: string,
+    address: string,
+    vehicle: string,
+    colorVehicle: string,
+    policeNo: string
+  ) => Promise<void>;
 };
 
 export const useComunityMotor = (): ContextDispatchTypeProps => {
@@ -72,8 +80,7 @@ export const useComunityMotor = (): ContextDispatchTypeProps => {
         throw new Error("Failed to fetch About Us data");
       }
 
-      const data: { data: OrgStructure[] } =
-        await response.json();
+      const data: { data: OrgStructure[] } = await response.json();
 
       // Return the 'attributes' part which contains the actual About Us data
       return data.data;
@@ -83,9 +90,58 @@ export const useComunityMotor = (): ContextDispatchTypeProps => {
     }
   }, []);
 
+  const SubmitRegisterMember = useCallback(
+    async (
+      name: string,
+      gender: string,
+      address: string,
+      vehicle: string,
+      colorVehicle: string,
+      policeNo: string
+    ) => {
+      try {
+        const response = await fetch(Apilist.register, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name,
+            gender: gender,
+            address: address,
+            vehicle: vehicle,
+            colorVehicle: colorVehicle,
+            policeNo: policeNo,
+          }),
+        });
+
+        // Check if the response is successful
+        if (!response.ok) {
+          throw new Error("Failed to fetch registration data");
+        }
+
+        // Parse the response data
+        const data = await response.json();
+        console.log("Data register:", data);
+
+        // Return the data if needed for further use
+        return data;
+      } catch (error) {
+        console.error("Error during registration:", error);
+        return;
+      }
+    },
+    []
+  );
+
   const dispatchValueMemo = useMemo(() => {
-    return { fetchCarousel, fetchAboutUs,fetchOrgStructure };
-  }, [fetchCarousel, fetchAboutUs,fetchOrgStructure]);
+    return {
+      fetchCarousel,
+      fetchAboutUs,
+      fetchOrgStructure,
+      SubmitRegisterMember,
+    };
+  }, [fetchCarousel, fetchAboutUs, fetchOrgStructure, SubmitRegisterMember]);
 
   return dispatchValueMemo;
 };

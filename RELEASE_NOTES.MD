@@ -1,3 +1,7 @@
+## Version 0.1.7 (06,Sep 2024)
+
+[KOMUNITAS_MOTOR][Integration API]integration API Register Member
+
 ## Version 0.1.6 (06,Sep 2024)
 
 [KOMUNITAS_MOTOR][Integration API]integration API About us

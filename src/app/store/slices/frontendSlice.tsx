@@ -42,3 +42,12 @@ export type DetailOrgStructure = {
   position?: string;
   name?: string;
 };
+
+export type registerBody = {
+  name: string;
+  gender: string;
+  address: string;
+  vehicle: string;
+  colorVehicle: string;
+  policeNo: string;
+};
