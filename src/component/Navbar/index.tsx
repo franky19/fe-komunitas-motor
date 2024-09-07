@@ -1,7 +1,8 @@
+'use client'
 import React, { useCallback, useState } from "react";
 import Links from "../Links";
 
-type MenuItem = {
+export type MenuItem = {
   label: string;
   href: string;
 };
@@ -9,9 +10,10 @@ type MenuItem = {
 type NavbarsProps = {
   menu: MenuItem[];
   iconNavbar?: React.ReactNode;
+  activeNavbar?: string;
 };
 
-const Navbar = ({ menu, iconNavbar }: NavbarsProps) => {
+const Navbar = ({ menu, iconNavbar, activeNavbar }: NavbarsProps) => {
   const [activeIndex, setActiveIndex] = useState<number>(0); // Track active menu index
   const [isShowMobile, setShowMobile] = useState<boolean>(false);
 
@@ -62,7 +64,8 @@ const Navbar = ({ menu, iconNavbar }: NavbarsProps) => {
                 <Links
                   href={itemMenu?.href}
                   className={`block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 ${
-                    index === activeIndex
+                    activeNavbar==itemMenu.label
+                    // index === activeIndex
                       ? "md:text-blue-700 text-white bg-blue-700"
                       : "text-gray-700 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700"
                   }`}

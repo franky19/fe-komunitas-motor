@@ -1,6 +1,7 @@
 import { sanitizeInput } from "@/app/helper/ValidationSchema";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import URL from "../config";
 
 export async function POST(req: NextRequest) {
   try {
@@ -9,7 +10,7 @@ export async function POST(req: NextRequest) {
     const sanitizedEmail = sanitizeInput(email);
     const sanitizedPassword = sanitizeInput(password);
     const cookieStore = cookies();
-    const response = await fetch("http://localhost:1337/api/auth/local", {
+    const response = await fetch(URL.login, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,7 +33,7 @@ export async function POST(req: NextRequest) {
 
       const token = cookieStore.get("token");
 
-      console.log("token:",token?.value)
+      console.log("token:", token?.value);
       return NextResponse.json(
         {
           token: jwtToken,

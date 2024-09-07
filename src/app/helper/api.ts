@@ -3,6 +3,7 @@ const Apilist: { [key: string]: string } = {
   about_us: "/api/about-us",
   organitation_structure: "/api/organitation-structure",
   register: "/api/register-member",
+  login:"/api/login"
 };
 
 export default Apilist;

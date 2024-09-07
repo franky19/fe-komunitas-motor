@@ -1,11 +1,12 @@
+"use client";
 import { useCallback, useMemo } from "react";
 import {
-  AboutUsAPI,
   AboutUsAttribute,
   Carousel,
   OrgStructure,
 } from "../store/slices/frontendSlice";
 import Apilist from "../helper/api";
+import { useRouter } from "next/navigation";
 
 type ContextDispatchTypeProps = {
   fetchCarousel: () => Promise<Carousel[] | undefined>;
@@ -19,9 +20,11 @@ type ContextDispatchTypeProps = {
     colorVehicle: string,
     policeNo: string
   ) => Promise<void>;
+  SubmitLogin: (email: string, password: string) => Promise<void>;
 };
 
 export const useComunityMotor = (): ContextDispatchTypeProps => {
+  const route = useRouter();
   const fetchCarousel = useCallback(async () => {
     try {
       const response = await fetch(Apilist.carousel, {
@@ -134,14 +137,51 @@ export const useComunityMotor = (): ContextDispatchTypeProps => {
     []
   );
 
+  const SubmitLogin = useCallback(async (email: string, password: string) => {
+    try {
+      const response = await fetch(Apilist.login, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+      
+      // Parse the response data
+      const data = await response.json();
+
+      if (data?.token !== null) {
+        route.push("/admin");
+      } else {
+        throw data;
+      }
+
+      // Return the data if needed for further use
+      return data;
+    } catch (error) {
+      console.error("Error during registration:", error);
+      return;
+    }
+  }, []);
+
   const dispatchValueMemo = useMemo(() => {
     return {
       fetchCarousel,
       fetchAboutUs,
       fetchOrgStructure,
       SubmitRegisterMember,
+      SubmitLogin,
     };
-  }, [fetchCarousel, fetchAboutUs, fetchOrgStructure, SubmitRegisterMember]);
+  }, [
+    fetchCarousel,
+    fetchAboutUs,
+    fetchOrgStructure,
+    SubmitRegisterMember,
+    SubmitLogin,
+  ]);
 
   return dispatchValueMemo;
 };
