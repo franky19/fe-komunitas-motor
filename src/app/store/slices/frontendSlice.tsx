@@ -51,3 +51,8 @@ export type registerBody = {
   colorVehicle: string;
   policeNo: string;
 };
+
+export type FormDataLogin = {
+  email: string;
+  password: string;
+};

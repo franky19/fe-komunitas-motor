@@ -68,7 +68,7 @@ export default function Home() {
     { label: "Event", href: "#event" },
     { label: "Blog", href: "/blog" },
     { label: "Registrasi member", href: "#register_member" },
-    { label: "Login", href: "https://google.com" },
+    { label: "Login", href: "/login" },
     { label: "Contact Us", href: "#contact-us" },
   ];
 

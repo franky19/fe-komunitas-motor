@@ -5,6 +5,7 @@ const URL = {
   aboutUs: `${BASEURL_API}/api/about-us`,
   orgStructure: `${BASEURL_API}/api/organitation-structures`,
   register: `${BASEURL_API}/api/memberships`,
+  login:`${BASEURL_API}/api/auth/local`,
 };
 
 export default URL;
